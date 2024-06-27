@@ -16,7 +16,7 @@ namespace try_catch
                     Console.WriteLine(num);
 
                     looping = false;
-                }
+                }  
 
                 //Adding the e keyword to return a more specific error message
                 catch (Exception e)
