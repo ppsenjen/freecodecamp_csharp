@@ -5,17 +5,17 @@
         //difference between a structure and a class 
         /*
          * A structure is limited to one constructor since all of the fields
-         * needs to be assyned once the struct is created
-         * A structure you have to declare all the variables inside the parametre and assign them all inside the constructor
+         * needs to be assigned once the struct is created
+         * A structure you have to declare all the variables inside the param and assign them all inside the constructor
          * 
-         * A class can have many constructors even an empty contrutor is accepted
+         * A class can have many constructors even an empty construct is accepted
          * 
          */
 
         class Person 
         {
-            public string name;
-            public int age;
+            public string name {set; get; }
+            public int age {set; get; }
 
             public Person() 
             { 
@@ -38,6 +38,11 @@
                 this.name = name;
                 this.age = age;
             }
+/*public string ReturnDetails()
+{
+return $"Name: {name}\nAge: {age}";
+
+}*/
         
         }
         static void Main(string[] args)
@@ -51,7 +56,7 @@
             Person person = new Person(name, age);
 
             Console.WriteLine(person.name);
-            Console.WriteLine(person.age);
+             Console.WriteLine(person.age);
 
 
             Console.ReadLine();
