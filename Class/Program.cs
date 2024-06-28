@@ -8,8 +8,13 @@
          * needs to be assigned once the struct is created
          * A structure you have to declare all the variables inside the param and assign them all inside the constructor
          * 
+<<<<<<< HEAD
          * A class can have many constructors even an empty construct is accepted
          * 
+=======
+         * A class can have many constructors even an empty contrutor is accepted
+         * All functions should be within the class
+>>>>>>> e63fa7a246a0307575aba761ac45ff73b5014cbe
          */
 
         class Person 
