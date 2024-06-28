@@ -9,7 +9,7 @@
          * A structure you have to declare all the variables inside the parametre and assign them all inside the constructor
          * 
          * A class can have many constructors even an empty contrutor is accepted
-         * 
+         * All functions should be within the class
          */
 
         class Person 
