@@ -50,7 +50,14 @@
 
             Person person = new Person(name, age);
 
-            Console.WriteLine(person.name);
+            if (!string.IsNullOrEmpty(name))
+            {
+
+                Console.WriteLine(person.name);
+
+            }
+
+            
             Console.WriteLine(person.age);
 
 
