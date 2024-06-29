@@ -41,8 +41,8 @@ class Program
         Person person = new Person("John", "Doe");
         
         // Accessing properties
-       // Console.WriteLine("First Name: " + person.FirstName);
-       // Console.WriteLine("Last Name: " + person.LastName);
+       Console.WriteLine("First Name: " + person.FirstName);
+        Console.WriteLine("Last Name: " + person.LastName);
 
         // Calling a method
         person.DisplayFullName();
