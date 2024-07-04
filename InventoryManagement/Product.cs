@@ -73,6 +73,7 @@ public UnitType UnitType {get;set;}
 public int AmountInStock { get; private set;}
 
 public bool IsBelowStockThreshold{get;private set;}
+public Price Price {get; set;}
 
 //constructor overloading using (this) to invoke another constructor
     public Product(int id) : this(id, string.Empty)
@@ -87,23 +88,19 @@ this.name = name;
 
 }
 
-public Product (int id, string name, string? description, UnitType unitType, int amountInStock)
+public Product (int id, string name, string? description,Price price, UnitType unitType, int amountInStock)
 {
 Id = id;
 Name = name;
 Description = description;
+Price = price;
 UnitType = unitType;
 AmountInStock = amountInStock;
 
 UpdateLowStock();
 
 
-
 }
-
-
-
-
 
 //public method to use a specified number of items from stock
 public void UseProduct(int items)
@@ -154,11 +151,6 @@ if(AmountInStock > 10) {
 
 }
 
-
-
-
-
-
 //method to decrease the stock ny a specified number of items with a reason
 
 private void DecreaseStock(int items, string reason)
@@ -196,7 +188,7 @@ public string DisplayDetailsFull()
 {
 
 /*StringBuilder sb = new();
-sb.Append($"{id}  {name} \n{description}\n{AmountInStock} item(s) in stock");
+sb.Append($"{id}  {name} \n{description}\n{Price}\n{AmountInStock} item(s) in stock");
 
 if (IsBelowStockThreshold)
 {
@@ -204,7 +196,7 @@ if (IsBelowStockThreshold)
 }
 
 return sb.ToString(); */
-return DisplayDetailsFull("");
+return DisplayDetailsFull("");   //alternative to the above
 
 }
 
@@ -212,7 +204,7 @@ return DisplayDetailsFull("");
 public string DisplayDetailsFull (string extraDetails)
 {
 StringBuilder sb = new StringBuilder();
-sb.Append($"{id}  {name} \n{description}\n{AmountInStock} item(s) in stock");
+sb.Append($"{id}  {name} \n{description}\n{Price}\n{AmountInStock} item(s) in stock");
 sb.Append (extraDetails);
 
 if (IsBelowStockThreshold)
