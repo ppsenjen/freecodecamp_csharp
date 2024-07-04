@@ -21,6 +21,8 @@ private string? description;
 private int maxItemsInStock = 0;
 
 
+
+
 //properties prevent direct entry to the private data
 //A property to get access to the id of the product
 //or setting it
@@ -67,12 +69,37 @@ description = value.Length >250 ? value[..250] : value ;
 
 public UnitType UnitType {get;set;}
 //private set = the value is available for use inside the class
-//but not from the outside
+//but not from the outside (read only)
 public int AmountInStock { get; private set;}
 
 public bool IsBelowStockThreshold{get;private set;}
 
+//constructor overloading using (this) to invoke another constructor
+    public Product(int id) : this(id, string.Empty)
+    {
 
+    }
+
+public Product (int id, string name)
+{
+this.id = id;
+this.name = name;
+
+}
+
+public Product (int id, string name, string? description, UnitType unitType, int amountInStock)
+{
+Id = id;
+Name = name;
+Description = description;
+UnitType = unitType;
+AmountInStock = amountInStock;
+
+UpdateLowStock();
+
+
+
+}
 
 
 
@@ -99,13 +126,39 @@ Log($"Not enough items on stock for{CreateSimpleProductRepresentation()}. {Amoun
 }
 }
 
-
+//overloading IncreaseStock method
 public void IncreaseStock()
 {
 AmountInStock++;
 UpdateLowStock();
 
 }
+public void IncreaseStock(int amount)
+{
+int newStock = AmountInStock + amount;
+
+if (newStock <= maxItemsInStock )
+{
+AmountInStock += amount;
+
+
+}
+else {
+    AmountInStock = maxItemsInStock; //storing only the possible items  overstocking is not allowed
+    Log ($"{CreateSimpleProductRepresentation} stock overflow. {newStock - AmountInStock}   item(s)  ordered that could'nt be stored");
+}
+
+if(AmountInStock > 10) {
+    IsBelowStockThreshold = false;
+}
+
+}
+
+
+
+
+
+
 //method to decrease the stock ny a specified number of items with a reason
 
 private void DecreaseStock(int items, string reason)
@@ -142,7 +195,7 @@ Console.WriteLine(message);
 public string DisplayDetailsFull()
 {
 
-StringBuilder sb = new();
+/*StringBuilder sb = new();
 sb.Append($"{id}  {name} \n{description}\n{AmountInStock} item(s) in stock");
 
 if (IsBelowStockThreshold)
@@ -150,8 +203,26 @@ if (IsBelowStockThreshold)
     sb.Append("\n !!LOW STOCK");
 }
 
+return sb.ToString(); */
+return DisplayDetailsFull("");
+
+}
+
+//overload of DisplayDetailsFull
+public string DisplayDetailsFull (string extraDetails)
+{
+StringBuilder sb = new StringBuilder();
+sb.Append($"{id}  {name} \n{description}\n{AmountInStock} item(s) in stock");
+sb.Append (extraDetails);
+
+if (IsBelowStockThreshold)
+{
+sb.Append("!!LOW STOCK");
+
+}
 return sb.ToString();
 }
+
 
 //method to update the low stock status
 private void UpdateLowStock()
