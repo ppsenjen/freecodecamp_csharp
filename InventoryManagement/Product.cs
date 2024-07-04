@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace InventoryManagement
 {
@@ -18,49 +19,106 @@ private int id;
 private string name = string.Empty;
 private string? description;
 private int maxItemsInStock = 0;
-private int amountInStock = 0;
-private bool isBelowStockThreshold = false;
+
+
+//properties prevent direct entry to the private data
+//A property to get access to the id of the product
+//or setting it
+public int Id
+ {
+get {return id;}
+set {id = value;}
+
+}
+
+//A property for the Name 
+//set checks if the value entered in 50 or more
+//only the first 50 will be used else it will be truncated
+// [..50] is the range operator which will take values until 50
+public string Name 
+{
+    get {return name;}
+    set {name = value.Length >50? value [..50] : value;}
+}
+
+//property for the description
+public string? Description 
+{
+
+get {return description;}
+set{
+if (value == null)
+{
+description = string.Empty;
+
+}
+else 
+{
+description = value.Length >250 ? value[..250] : value ;
+
+}
+}
+}
+
+
+//Automatic properties for unit type
+//AmountInStock
+//IsBelowStockThreshold
+
+public UnitType UnitType {get;set;}
+//private set = the value is available for use inside the class
+//but not from the outside
+public int AmountInStock { get; private set;}
+
+public bool IsBelowStockThreshold{get;private set;}
+
+
+
+
+
+
 
 //public method to use a specified number of items from stock
 public void UseProduct(int items)
 {
 
-if (items <= amountInStock)
+if (items <= AmountInStock)
 {
     //decrease the stock and update the low stock status
-amountInStock-=items;
+AmountInStock-=items;
 
 UpdateLowStock();
-Log($"Amount in stock updated. Now {amountInStock} items in stock");
+Log($"Amount in stock updated. Now {AmountInStock} items in stock");
 
 }
 
 else 
 {
     //log an error msg if not enough items are in stock
-Log($"Not enough items on stock for{CreateSimpleProductRepresentation()}. {amountInStock} available but {items} requested");
+Log($"Not enough items on stock for{CreateSimpleProductRepresentation()}. {AmountInStock} available but {items} requested");
 }
 }
 
 
 public void IncreaseStock()
 {
-amountInStock++;
+AmountInStock++;
+UpdateLowStock();
 
 }
 //method to decrease the stock ny a specified number of items with a reason
 
 private void DecreaseStock(int items, string reason)
 {
-if (items <= amountInStock)
+if (items <= AmountInStock)
 {
     //decreasing the stock
-    amountInStock-= items;
+    AmountInStock-= items;
 }
 else 
 {
     //if not enough items, set stock to zero
-amountInStock = 0;
+AmountInStock = 0;
 
 }
 UpdateLowStock();
@@ -85,9 +143,10 @@ public string DisplayDetailsFull()
 {
 
 StringBuilder sb = new();
-sb.Append($"{id}  {name} \n{description}\n{amountInStock} item(s) in stock");
+sb.Append($"{id}  {name} \n{description}\n{AmountInStock} item(s) in stock");
 
-if (isBelowStockThreshold){
+if (IsBelowStockThreshold)
+{
     sb.Append("\n !!LOW STOCK");
 }
 
@@ -97,9 +156,9 @@ return sb.ToString();
 //method to update the low stock status
 private void UpdateLowStock()
 {
-if (amountInStock <= 10) // fixed threshold for low stock
+if (AmountInStock <= 10) // fixed threshold for low stock
 {
-isBelowStockThreshold = true;
+IsBelowStockThreshold = true;
 
 }
 
