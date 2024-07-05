@@ -1,6 +1,8 @@
 ﻿using InventoryManagement;
 
-
+//accessing the static method using the class name
+Product.ChangeStockThreshold(10);
+Product.StockThreshold = 10;
 
 //Price samplePrice = new Price(10, Currency.Euro);
 //using object initializers t replace the above code soo a constructor is not needed for price class

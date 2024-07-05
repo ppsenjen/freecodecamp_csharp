@@ -145,7 +145,7 @@ else {
     Log ($"{CreateSimpleProductRepresentation} stock overflow. {newStock - AmountInStock}   item(s)  ordered that could'nt be stored");
 }
 
-if(AmountInStock > 10) {
+if(AmountInStock > StockThreshold) {
     IsBelowStockThreshold = false;
 }
 
@@ -214,12 +214,21 @@ sb.Append("!!LOW STOCK");
 }
 return sb.ToString();
 }
+//static method
+public static int StockThreshold = 5;
 
+public static void ChangeStockThreshold(int newStockThreshold)
+{
+    //only allow this to go thru if the value is > 0
+if (newStockThreshold > 0)
+StockThreshold = newStockThreshold;
+
+}
 
 //method to update the low stock status
 private void UpdateLowStock()
 {
-if (AmountInStock <= 10) // fixed threshold for low stock
+if (AmountInStock <= StockThreshold) // fixed threshold for low stock
 {
 IsBelowStockThreshold = true;
 
