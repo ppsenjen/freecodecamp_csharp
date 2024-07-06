@@ -14,6 +14,23 @@ public int id { get; private set; }
 public DateTime OrderFulfilmentDate {get; private set; }
 public List<OrderItem>OrderItems{get;}
 
+
+/*public string ShowOrderDetails ()
+{
+StringBuilder orderDetails = new StringBuilder ();
+orderDetails.AppendLine ($"Order ID; {id}");
+orderDetails.AppendLine ($"Order fulfillment date: {OrderfulfillmentDate.ToShortTimeString()}");
+if (OrderItems != null)
+{
+for each(OrderItem item in OrderItems)
+{
+orderDetails.AppendLine($"{item.ProductId}. {item.ProductName}: {item.AmountOrdered}");
+
+}
+}
+return orderDetails.ToString ();
+}*/
+
 public bool Fulfilled {get;set;}
 
 //constructor
