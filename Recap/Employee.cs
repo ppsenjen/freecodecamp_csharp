@@ -43,6 +43,16 @@ PerformWork(minimalHoursWorkedUnit);
 
     }
 
+public int CalculateBonus(int bonus)
+{
+
+if (numberOfHoursWorked  < 10)
+bonus *= 2;
+Console.WriteLine("The employee got a bonus of " + bonus);
+return bonus;
+}
+
+
 //method overloading
 public void PerformWork(int numberOfHours)
 {
@@ -52,14 +62,14 @@ Console.WriteLine($"{firstName} {lastName} has worked for {numberOfHours} hours"
 
 }
 
-public double ReceiveWage(bool resetHours = true)
+public double ReceiveWage()
 {
 wage = numberOfHoursWorked * hourlyRate;
 
 Console.WriteLine($"{firstName} {lastName} has received a wage of {wage} for {numberOfHoursWorked} hours of work. ");
-if(resetHours)
+//if(resetHours)
 
-    numberOfHoursWorked = 0;
+   // numberOfHoursWorked = 0;
     return wage;
 }
 
