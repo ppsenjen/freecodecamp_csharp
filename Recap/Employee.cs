@@ -8,19 +8,20 @@ namespace Name
 {
    class Employee
    {
-    public string firstName;
-    public string lastName;
-    public string email;
+    public string firstName { get; set; }
+    public string lastName { get; set; }
+    public string email { get; set; }
 
-    public int numberOfHoursWorked;
-    public double wage;
-    public double hourlyRate;
+    public int numberOfHoursWorked { get; set; }
+    public double wage { get; set; }
+    public double hourlyRate { get; set; }
 
-    public DateTime birthday;
+    public DateTime birthday    { get; set; }
+    public EmployeeType employeeType{ get; set; }
     const int minimalHoursWorkedUnit = 1;
 
     //another constuctor calling the previous one
- public Employee(string first,string last, string em,DateTime bd) : this(first,last,em,bd,0)
+ public Employee(string first,string last, string em,DateTime bd) : this(first,last,em,bd,0,EmployeeType.StoreManger)
  {
 
  }
@@ -29,13 +30,14 @@ namespace Name
 
 
 // constructor
-public Employee(string first,string last, string em,DateTime bd, double rate)
+public Employee(string first,string last, string em,DateTime bd, double rate,EmployeeType empType)
 {
 firstName = first;
 lastName = last;
 email = em;
 birthday = bd;
 hourlyRate = rate;
+employeeType = empType;
 }
     public void PerformWork()
     {
@@ -64,8 +66,16 @@ Console.WriteLine($"{firstName} {lastName} has worked for {numberOfHours} hours"
 
 public double ReceiveWage()
 {
-wage = numberOfHoursWorked * hourlyRate;
-
+    if (employeeType == EmployeeType.StoreManger)
+    {
+        Console.WriteLine($"An extra wage was added since {firstName} is a manager!");
+    
+wage = numberOfHoursWorked * hourlyRate * 1.25;
+    } 
+    else {
+        wage = numberOfHoursWorked * hourlyRate;
+    }
+    
 Console.WriteLine($"{firstName} {lastName} has received a wage of {wage} for {numberOfHoursWorked} hours of work. ");
 //if(resetHours)
 
